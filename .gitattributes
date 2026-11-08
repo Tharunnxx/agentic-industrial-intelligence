@@ -1,0 +1,2 @@
+# Keep the live model in GitHub without changing the application's expected path.
+models/*.joblib filter=lfs diff=lfs merge=lfs -text

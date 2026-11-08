@@ -1,0 +1,9 @@
+# Extra packages for the agentic platform. Install into the SAME environment you trained your models in.
+# numpy, pandas, scikit-learn and joblib are already there; do NOT upgrade them (joblib model files are
+# version-sensitive). pydantic is installed automatically by fastapi.
+fastapi>=0.110
+uvicorn>=0.27
+httpx>=0.27        # required by FastAPI's TestClient (API tests only)
+pytest>=8.0
+matplotlib>=3.7    # evaluation plots only
+python-multipart>=0.0.9  # CSV/ZIP uploads from the web interface

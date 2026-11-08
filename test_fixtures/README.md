@@ -1,0 +1,1 @@
+Synthetic upload smoke-test ZIP. Contains train_operational_readouts.csv and train_specifications.csv with three matching vehicle IDs. Exact feature headers are compatible with the saved model; sensor values are placeholders only. Use to test upload, compatibility, train-split fallback, vehicle listing and payload assembly. Do not use for model evaluation or accuracy claims.

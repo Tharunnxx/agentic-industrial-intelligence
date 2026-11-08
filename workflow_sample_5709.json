@@ -1,0 +1,741 @@
+{
+ "workflow": "full",
+ "status": "completed",
+ "final_status": "verified",
+ "escalated_to_human": false,
+ "replan_count": 0,
+ "input_fingerprint": "4e45dd5bba602cb6",
+ "prediction": {
+  "model_file": "cost_sensitive_model.joblib",
+  "classes": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "probabilities": {
+   "0": 0.3620378174137739,
+   "1": 0.18024673890059595,
+   "2": 0.15810535905584303,
+   "3": 0.12103676600461853,
+   "4": 0.17857331862516862
+  },
+  "predicted_class_argmax": 0,
+  "argmax_probability": 0.3620378174137739,
+  "probability_any_failure": 0.6379621825862261,
+  "probability_class_3_or_4": 0.29961008462978717,
+  "entropy_normalised": 0.9515893192121786,
+  "risk_summary": "Model probability of any failure class (1-4) is 63.8%; of the two closest-to-repair classes (3-4) 30.0%. Highest single-class probability: class 0 (36.2%).",
+  "calibration_note": "No calibration wrapper detected: probabilities are raw model outputs and were not verified as calibrated.",
+  "model_notes": [
+   "Documented official-validation behaviour of this artifact: it predicted class 4 for 4,991 of 5,046 vehicles (98.9%), including 4,855 of 4,910 class-0 vehicles (source: cost_sensitive_report.txt).",
+   "Its reported mean cost (9.7495) is close to the always-class-4 reference (9.8228, derived) and well above the 5.1-5.6 internal random-cutoff simulations, which are a different protocol and not official scores."
+  ]
+ },
+ "investigation": {
+  "summary": "3 of 6 risk rules triggered; P(any failure)=63.8%, minimum-expected-cost class 4, uncertainty high.",
+  "evidence": [
+   {
+    "id": "E1",
+    "kind": "observed",
+    "statement": "Readout supplied with 105 numeric features (0 null, 0.0%) and 8 specification fields.",
+    "value": {
+     "n_numeric": 105,
+     "n_null": 0,
+     "n_spec": 8
+    }
+   },
+   {
+    "id": "E2",
+    "kind": "observed",
+    "statement": "Specification field values as supplied.",
+    "value": {
+     "Spec_0": "Cat0",
+     "Spec_1": "Cat0",
+     "Spec_2": "Cat0",
+     "Spec_3": "Cat1",
+     "Spec_4": "Cat0",
+     "Spec_5": "Cat0",
+     "Spec_6": "Cat0",
+     "Spec_7": "Cat1"
+    }
+   },
+   {
+    "id": "E3",
+    "kind": "observed",
+    "statement": "Readout identifiers as supplied (not used as model features).",
+    "value": {
+     "vehicle_id": "5709",
+     "time_step": 299.4
+    }
+   },
+   {
+    "id": "M1",
+    "kind": "model_output",
+    "statement": "Class probabilities from cost_sensitive_model.joblib.",
+    "value": {
+     "0": 0.3620378174137739,
+     "1": 0.18024673890059595,
+     "2": 0.15810535905584303,
+     "3": 0.12103676600461853,
+     "4": 0.17857331862516862
+    }
+   },
+   {
+    "id": "M2",
+    "kind": "model_output",
+    "statement": "P(any failure, classes 1-4) = 0.6380.",
+    "value": 0.6379621825862261
+   },
+   {
+    "id": "M3",
+    "kind": "model_output",
+    "statement": "P(class 3 or 4) = 0.2996.",
+    "value": 0.29961008462978717
+   },
+   {
+    "id": "D1",
+    "kind": "derived",
+    "statement": "Expected cost per predicted class (official matrix, rows=actual, cols=predicted): [221.1823, 141.8957, 81.9374, 41.5217, 7.3547]; minimum at class 4; raw argmax is class 0.",
+    "value": {
+     "expected_costs": {
+      "0": 221.18232121130382,
+      "1": 141.89569378451804,
+      "2": 81.93737850008866,
+      "3": 41.52171550635336,
+      "4": 7.354699058722176
+     },
+     "min_cost_class": 4
+    }
+   }
+  ],
+  "risk_indicators": [
+   {
+    "id": "RI1",
+    "rule": "P(any failure) >= medium threshold",
+    "description": "Moderate model-estimated failure probability",
+    "observed_value": 0.6379621825862261,
+    "threshold": 0.2,
+    "triggered": true
+   },
+   {
+    "id": "RI2",
+    "rule": "P(any failure) >= high threshold",
+    "description": "High model-estimated failure probability",
+    "observed_value": 0.6379621825862261,
+    "threshold": 0.5,
+    "triggered": true
+   },
+   {
+    "id": "RI3",
+    "rule": "P(class 3 or 4) >= critical threshold",
+    "description": "Probability mass on the closest-to-repair classes",
+    "observed_value": 0.29961008462978717,
+    "threshold": 0.3,
+    "triggered": false
+   },
+   {
+    "id": "RI4",
+    "rule": "min-expected-cost class differs from raw argmax",
+    "description": "Cost asymmetry changes the decision",
+    "observed_value": 4,
+    "threshold": 0,
+    "triggered": true
+   },
+   {
+    "id": "RI5",
+    "rule": "null fraction >= review threshold",
+    "description": "Incomplete readout",
+    "observed_value": 0.0,
+    "threshold": 0.5,
+    "triggered": false
+   },
+   {
+    "id": "RI6",
+    "rule": "specification value unseen in training",
+    "description": "Input outside the encoder's known categories",
+    "observed_value": 0,
+    "threshold": 0,
+    "triggered": false
+   }
+  ],
+  "hypotheses": [
+   {
+    "id": "H1",
+    "statement": "The readout resembles training readouts that preceded a recorded repair; this is a statistical association of the model, not a diagnosed fault. The affected component cannot be identified because feature names are anonymised.",
+    "basis": [
+     "M2",
+     "E1"
+    ],
+    "is_hypothesis": true,
+    "status": "unverified"
+   }
+  ],
+  "missing_information": [
+   "No repair or maintenance history was supplied.",
+   "Only a single readout was supplied; no trend or time-series evidence is available.",
+   "The 105 operational features are anonymised; no sensor-level root cause can be derived from them."
+  ],
+  "uncertainty": {
+   "level": "high",
+   "factors": [
+    "Probability is spread out (highest single class 36.2%, normalised entropy 0.95).",
+    "Documented evaluation of this model artifact shows poor validation behaviour (see reliability notes).",
+    "Probabilities are not verified as calibrated."
+   ],
+   "reliability_notes": [
+    "Documented official-validation behaviour of this artifact: it predicted class 4 for 4,991 of 5,046 vehicles (98.9%), including 4,855 of 4,910 class-0 vehicles (source: cost_sensitive_report.txt).",
+    "Its reported mean cost (9.7495) is close to the always-class-4 reference (9.8228, derived) and well above the 5.1-5.6 internal random-cutoff simulations, which are a different protocol and not official scores."
+   ],
+   "missing_fraction": 0.0,
+   "entropy_normalised": 0.9515893192121786
+  }
+ },
+ "recommendation": {
+  "recommended_class": 4,
+  "raw_argmax_class": 0,
+  "expected_costs": {
+   "0": 221.18232121130382,
+   "1": 141.89569378451804,
+   "2": 81.93737850008866,
+   "3": 41.52171550635336,
+   "4": 7.354699058722176
+  },
+  "cost_matrix_orientation": "COST_MATRIX[actual][predicted]: rows = actual class, columns = predicted class",
+  "priority": "high",
+  "priority_rule": "R-HIGH-P",
+  "priority_rationale": "P(any failure)=0.638 >= 0.5",
+  "actions": [
+   {
+    "id": "A1",
+    "type": "schedule_inspection",
+    "description": "Recommend an inspection request for engineer approval; the engineer decides timing.",
+    "urgency": "soon",
+    "executed": false,
+    "automated": false,
+    "requires_human_approval": true
+   },
+   {
+    "id": "A2",
+    "type": "record_outcome",
+    "description": "Recommend recording the engineer's decision and any inspection outcome so the model can later be checked against it.",
+    "urgency": "after review",
+    "executed": false,
+    "automated": false,
+    "requires_human_approval": true
+   }
+  ],
+  "explanation": "Priority high under rule R-HIGH-P (P(any failure)=0.638 >= 0.5). The minimum-expected-cost class is 4 (expected cost 7.35); the raw highest-probability class is 0; because a missed failure costs far more than a false alarm, the cost-minimising label is conservative by design and priority is set from probabilities. Evidence: P(any failure)=63.8%, P(class 3-4)=30.0%, 0.0% of numeric features null. Uncertainty is high: Probability is spread out (highest single class 36.2%, normalised entropy 0.95). Documented evaluation of this model artifact shows poor validation behaviour (see reliability notes). Probabilities are not verified as calibrated. This is a recommendation for a qualified maintenance engineer; nothing has been executed.",
+  "evidence_refs": [
+   "M1",
+   "M2",
+   "M3",
+   "D1",
+   "E1"
+  ],
+  "uncertainty_statement": "Uncertainty is high: Probability is spread out (highest single class 36.2%, normalised entropy 0.95). Documented evaluation of this model artifact shows poor validation behaviour (see reliability notes). Probabilities are not verified as calibrated.",
+  "requires_human_review": true,
+  "revision": 0,
+  "addressed_issues": [],
+  "safety_notice": "Decision support only: these are recommendations for a qualified maintenance engineer. No action has been executed and none will be executed automatically."
+ },
+ "verification": {
+  "status": "verified",
+  "checks": [
+   {
+    "id": "V01",
+    "name": "required_fields",
+    "passed": true,
+    "severity": "fixable",
+    "message": "All required recommendation fields are present."
+   },
+   {
+    "id": "V02",
+    "name": "expected_costs_recomputed",
+    "passed": true,
+    "severity": "fixable",
+    "message": "Expected costs match an independent recomputation (rows = actual)."
+   },
+   {
+    "id": "V03",
+    "name": "recommended_class_minimises_expected_cost",
+    "passed": true,
+    "severity": "fixable",
+    "message": "Recommended class 4 minimises expected cost."
+   },
+   {
+    "id": "V04",
+    "name": "priority_matches_rule",
+    "passed": true,
+    "severity": "fixable",
+    "message": "Priority 'high' matches the configured rule."
+   },
+   {
+    "id": "V05",
+    "name": "no_executed_or_automated_actions",
+    "passed": true,
+    "severity": "fixable",
+    "message": "Every action is a human-approved recommendation; none is claimed as executed."
+   },
+   {
+    "id": "V06",
+    "name": "evidence_refs_resolve",
+    "passed": true,
+    "severity": "fixable",
+    "message": "All cited evidence exists in the investigation."
+   },
+   {
+    "id": "V07",
+    "name": "priority_action_consistency",
+    "passed": true,
+    "severity": "fixable",
+    "message": "High/critical priority includes an escalation or inspection recommendation."
+   },
+   {
+    "id": "V08",
+    "name": "evidence_vs_hypothesis_separation",
+    "passed": true,
+    "severity": "blocking",
+    "message": "Hypotheses are flagged unverified; evidence kinds and risk indicators are well-formed."
+   },
+   {
+    "id": "V09",
+    "name": "probability_sanity",
+    "passed": true,
+    "severity": "blocking",
+    "message": "Probabilities are finite and sum to 1."
+   },
+   {
+    "id": "V10",
+    "name": "human_review_flag",
+    "passed": true,
+    "severity": "fixable",
+    "message": "Human review is required for the recommendation."
+   }
+  ],
+  "reasons": [
+   "All verification checks passed; human review of the recommendation is still expected."
+  ],
+  "replan_issue_codes": [],
+  "review_reasons": []
+ },
+ "trace": [
+  {
+   "sequence": 1,
+   "stage": "input_validation",
+   "agent": "Orchestrator",
+   "status": "ok",
+   "started_at": "2026-11-01T19:24:51.257272+00:00",
+   "ended_at": "2026-11-01T19:24:51.257739+00:00",
+   "duration_ms": 0.47,
+   "input_summary": {
+    "n_feature_keys": 113
+   },
+   "output": {
+    "vehicle_id": "5709",
+    "time_step": 299.4,
+    "n_numeric": 105,
+    "n_spec": 8,
+    "n_missing_numeric": 0,
+    "missing_fraction": 0.0,
+    "spec_values": {
+     "Spec_0": "Cat0",
+     "Spec_1": "Cat0",
+     "Spec_2": "Cat0",
+     "Spec_3": "Cat1",
+     "Spec_4": "Cat0",
+     "Spec_5": "Cat0",
+     "Spec_6": "Cat0",
+     "Spec_7": "Cat1"
+    },
+    "unseen_spec_values": {},
+    "warnings": []
+   },
+   "error": null
+  },
+  {
+   "sequence": 2,
+   "stage": "prediction",
+   "agent": "PredictionAgent",
+   "status": "ok",
+   "started_at": "2026-11-01T19:24:51.257776+00:00",
+   "ended_at": "2026-11-01T19:24:51.421368+00:00",
+   "duration_ms": 163.605,
+   "input_summary": {
+    "model_file": "cost_sensitive_model.joblib"
+   },
+   "output": {
+    "model_file": "cost_sensitive_model.joblib",
+    "classes": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "probabilities": {
+     "0": 0.3620378174137739,
+     "1": 0.18024673890059595,
+     "2": 0.15810535905584303,
+     "3": 0.12103676600461853,
+     "4": 0.17857331862516862
+    },
+    "predicted_class_argmax": 0,
+    "argmax_probability": 0.3620378174137739,
+    "probability_any_failure": 0.6379621825862261,
+    "probability_class_3_or_4": 0.29961008462978717,
+    "entropy_normalised": 0.9515893192121786,
+    "risk_summary": "Model probability of any failure class (1-4) is 63.8%; of the two closest-to-repair classes (3-4) 30.0%. Highest single-class probability: class 0 (36.2%).",
+    "calibration_note": "No calibration wrapper detected: probabilities are raw model outputs and were not verified as calibrated.",
+    "model_notes": [
+     "Documented official-validation behaviour of this artifact: it predicted class 4 for 4,991 of 5,046 vehicles (98.9%), including 4,855 of 4,910 class-0 vehicles (source: cost_sensitive_report.txt).",
+     "Its reported mean cost (9.7495) is close to the always-class-4 reference (9.8228, derived) and well above the 5.1-5.6 internal random-cutoff simulations, which are a different protocol and not official scores."
+    ]
+   },
+   "error": null
+  },
+  {
+   "sequence": 3,
+   "stage": "investigation",
+   "agent": "InvestigationAgent",
+   "status": "ok",
+   "started_at": "2026-11-01T19:24:51.421456+00:00",
+   "ended_at": "2026-11-01T19:24:51.422166+00:00",
+   "duration_ms": 0.716,
+   "input_summary": {
+    "evidence_sources": [
+     "readout",
+     "prediction"
+    ]
+   },
+   "output": {
+    "summary": "3 of 6 risk rules triggered; P(any failure)=63.8%, minimum-expected-cost class 4, uncertainty high.",
+    "evidence": [
+     {
+      "id": "E1",
+      "kind": "observed",
+      "statement": "Readout supplied with 105 numeric features (0 null, 0.0%) and 8 specification fields.",
+      "value": {
+       "n_numeric": 105,
+       "n_null": 0,
+       "n_spec": 8
+      }
+     },
+     {
+      "id": "E2",
+      "kind": "observed",
+      "statement": "Specification field values as supplied.",
+      "value": {
+       "Spec_0": "Cat0",
+       "Spec_1": "Cat0",
+       "Spec_2": "Cat0",
+       "Spec_3": "Cat1",
+       "Spec_4": "Cat0",
+       "Spec_5": "Cat0",
+       "Spec_6": "Cat0",
+       "Spec_7": "Cat1"
+      }
+     },
+     {
+      "id": "E3",
+      "kind": "observed",
+      "statement": "Readout identifiers as supplied (not used as model features).",
+      "value": {
+       "vehicle_id": "5709",
+       "time_step": 299.4
+      }
+     },
+     {
+      "id": "M1",
+      "kind": "model_output",
+      "statement": "Class probabilities from cost_sensitive_model.joblib.",
+      "value": {
+       "0": 0.3620378174137739,
+       "1": 0.18024673890059595,
+       "2": 0.15810535905584303,
+       "3": 0.12103676600461853,
+       "4": 0.17857331862516862
+      }
+     },
+     {
+      "id": "M2",
+      "kind": "model_output",
+      "statement": "P(any failure, classes 1-4) = 0.6380.",
+      "value": 0.6379621825862261
+     },
+     {
+      "id": "M3",
+      "kind": "model_output",
+      "statement": "P(class 3 or 4) = 0.2996.",
+      "value": 0.29961008462978717
+     },
+     {
+      "id": "D1",
+      "kind": "derived",
+      "statement": "Expected cost per predicted class (official matrix, rows=actual, cols=predicted): [221.1823, 141.8957, 81.9374, 41.5217, 7.3547]; minimum at class 4; raw argmax is class 0.",
+      "value": {
+       "expected_costs": {
+        "0": 221.18232121130382,
+        "1": 141.89569378451804,
+        "2": 81.93737850008866,
+        "3": 41.52171550635336,
+        "4": 7.354699058722176
+       },
+       "min_cost_class": 4
+      }
+     }
+    ],
+    "risk_indicators": [
+     {
+      "id": "RI1",
+      "rule": "P(any failure) >= medium threshold",
+      "description": "Moderate model-estimated failure probability",
+      "observed_value": 0.6379621825862261,
+      "threshold": 0.2,
+      "triggered": true
+     },
+     {
+      "id": "RI2",
+      "rule": "P(any failure) >= high threshold",
+      "description": "High model-estimated failure probability",
+      "observed_value": 0.6379621825862261,
+      "threshold": 0.5,
+      "triggered": true
+     },
+     {
+      "id": "RI3",
+      "rule": "P(class 3 or 4) >= critical threshold",
+      "description": "Probability mass on the closest-to-repair classes",
+      "observed_value": 0.29961008462978717,
+      "threshold": 0.3,
+      "triggered": false
+     },
+     {
+      "id": "RI4",
+      "rule": "min-expected-cost class differs from raw argmax",
+      "description": "Cost asymmetry changes the decision",
+      "observed_value": 4,
+      "threshold": 0,
+      "triggered": true
+     },
+     {
+      "id": "RI5",
+      "rule": "null fraction >= review threshold",
+      "description": "Incomplete readout",
+      "observed_value": 0.0,
+      "threshold": 0.5,
+      "triggered": false
+     },
+     {
+      "id": "RI6",
+      "rule": "specification value unseen in training",
+      "description": "Input outside the encoder's known categories",
+      "observed_value": 0,
+      "threshold": 0,
+      "triggered": false
+     }
+    ],
+    "hypotheses": [
+     {
+      "id": "H1",
+      "statement": "The readout resembles training readouts that preceded a recorded repair; this is a statistical association of the model, not a diagnosed fault. The affected component cannot be identified because feature names are anonymised.",
+      "basis": [
+       "M2",
+       "E1"
+      ],
+      "is_hypothesis": true,
+      "status": "unverified"
+     }
+    ],
+    "missing_information": [
+     "No repair or maintenance history was supplied.",
+     "Only a single readout was supplied; no trend or time-series evidence is available.",
+     "The 105 operational features are anonymised; no sensor-level root cause can be derived from them."
+    ],
+    "uncertainty": {
+     "level": "high",
+     "factors": [
+      "Probability is spread out (highest single class 36.2%, normalised entropy 0.95).",
+      "Documented evaluation of this model artifact shows poor validation behaviour (see reliability notes).",
+      "Probabilities are not verified as calibrated."
+     ],
+     "reliability_notes": [
+      "Documented official-validation behaviour of this artifact: it predicted class 4 for 4,991 of 5,046 vehicles (98.9%), including 4,855 of 4,910 class-0 vehicles (source: cost_sensitive_report.txt).",
+      "Its reported mean cost (9.7495) is close to the always-class-4 reference (9.8228, derived) and well above the 5.1-5.6 internal random-cutoff simulations, which are a different protocol and not official scores."
+     ],
+     "missing_fraction": 0.0,
+     "entropy_normalised": 0.9515893192121786
+    }
+   },
+   "error": null
+  },
+  {
+   "sequence": 4,
+   "stage": "decision",
+   "agent": "DecisionAgent",
+   "status": "ok",
+   "started_at": "2026-11-01T19:24:51.422331+00:00",
+   "ended_at": "2026-11-01T19:24:51.423276+00:00",
+   "duration_ms": 0.952,
+   "input_summary": {
+    "revision": 0
+   },
+   "output": {
+    "recommended_class": 4,
+    "raw_argmax_class": 0,
+    "expected_costs": {
+     "0": 221.18232121130382,
+     "1": 141.89569378451804,
+     "2": 81.93737850008866,
+     "3": 41.52171550635336,
+     "4": 7.354699058722176
+    },
+    "cost_matrix_orientation": "COST_MATRIX[actual][predicted]: rows = actual class, columns = predicted class",
+    "priority": "high",
+    "priority_rule": "R-HIGH-P",
+    "priority_rationale": "P(any failure)=0.638 >= 0.5",
+    "actions": [
+     {
+      "id": "A1",
+      "type": "schedule_inspection",
+      "description": "Recommend an inspection request for engineer approval; the engineer decides timing.",
+      "urgency": "soon",
+      "executed": false,
+      "automated": false,
+      "requires_human_approval": true
+     },
+     {
+      "id": "A2",
+      "type": "record_outcome",
+      "description": "Recommend recording the engineer's decision and any inspection outcome so the model can later be checked against it.",
+      "urgency": "after review",
+      "executed": false,
+      "automated": false,
+      "requires_human_approval": true
+     }
+    ],
+    "explanation": "Priority high under rule R-HIGH-P (P(any failure)=0.638 >= 0.5). The minimum-expected-cost class is 4 (expected cost 7.35); the raw highest-probability class is 0; because a missed failure costs far more than a false alarm, the cost-minimising label is conservative by design and priority is set from probabilities. Evidence: P(any failure)=63.8%, P(class 3-4)=30.0%, 0.0% of numeric features null. Uncertainty is high: Probability is spread out (highest single class 36.2%, normalised entropy 0.95). Documented evaluation of this model artifact shows poor validation behaviour (see reliability notes). Probabilities are not verified as calibrated. This is a recommendation for a qualified maintenance engineer; nothing has been executed.",
+    "evidence_refs": [
+     "M1",
+     "M2",
+     "M3",
+     "D1",
+     "E1"
+    ],
+    "uncertainty_statement": "Uncertainty is high: Probability is spread out (highest single class 36.2%, normalised entropy 0.95). Documented evaluation of this model artifact shows poor validation behaviour (see reliability notes). Probabilities are not verified as calibrated.",
+    "requires_human_review": true,
+    "revision": 0,
+    "addressed_issues": [],
+    "safety_notice": "Decision support only: these are recommendations for a qualified maintenance engineer. No action has been executed and none will be executed automatically."
+   },
+   "error": null
+  },
+  {
+   "sequence": 5,
+   "stage": "verification",
+   "agent": "VerificationAgent",
+   "status": "ok",
+   "started_at": "2026-11-01T19:24:51.423359+00:00",
+   "ended_at": "2026-11-01T19:24:51.424264+00:00",
+   "duration_ms": 0.912,
+   "input_summary": {
+    "revision": 0
+   },
+   "output": {
+    "status": "verified",
+    "checks": [
+     {
+      "id": "V01",
+      "name": "required_fields",
+      "passed": true,
+      "severity": "fixable",
+      "message": "All required recommendation fields are present."
+     },
+     {
+      "id": "V02",
+      "name": "expected_costs_recomputed",
+      "passed": true,
+      "severity": "fixable",
+      "message": "Expected costs match an independent recomputation (rows = actual)."
+     },
+     {
+      "id": "V03",
+      "name": "recommended_class_minimises_expected_cost",
+      "passed": true,
+      "severity": "fixable",
+      "message": "Recommended class 4 minimises expected cost."
+     },
+     {
+      "id": "V04",
+      "name": "priority_matches_rule",
+      "passed": true,
+      "severity": "fixable",
+      "message": "Priority 'high' matches the configured rule."
+     },
+     {
+      "id": "V05",
+      "name": "no_executed_or_automated_actions",
+      "passed": true,
+      "severity": "fixable",
+      "message": "Every action is a human-approved recommendation; none is claimed as executed."
+     },
+     {
+      "id": "V06",
+      "name": "evidence_refs_resolve",
+      "passed": true,
+      "severity": "fixable",
+      "message": "All cited evidence exists in the investigation."
+     },
+     {
+      "id": "V07",
+      "name": "priority_action_consistency",
+      "passed": true,
+      "severity": "fixable",
+      "message": "High/critical priority includes an escalation or inspection recommendation."
+     },
+     {
+      "id": "V08",
+      "name": "evidence_vs_hypothesis_separation",
+      "passed": true,
+      "severity": "blocking",
+      "message": "Hypotheses are flagged unverified; evidence kinds and risk indicators are well-formed."
+     },
+     {
+      "id": "V09",
+      "name": "probability_sanity",
+      "passed": true,
+      "severity": "blocking",
+      "message": "Probabilities are finite and sum to 1."
+     },
+     {
+      "id": "V10",
+      "name": "human_review_flag",
+      "passed": true,
+      "severity": "fixable",
+      "message": "Human review is required for the recommendation."
+     }
+    ],
+    "reasons": [
+     "All verification checks passed; human review of the recommendation is still expected."
+    ],
+    "replan_issue_codes": [],
+    "review_reasons": []
+   },
+   "error": null
+  }
+ ],
+ "error": null,
+ "rule_config": {
+  "critical_p_high": 0.3,
+  "high_p_any": 0.5,
+  "medium_p_any": 0.2,
+  "review_missing_fraction": 0.5,
+  "max_missing_fraction": 0.9,
+  "max_replans": 1
+ },
+ "disclaimers": [
+  "Decision support prototype: recommendations are not executed and must be reviewed by a qualified maintenance engineer.",
+  "Probabilities come from the saved model artifact; see model notes for its documented validation behaviour."
+ ]
+}

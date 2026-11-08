@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151e25">
+  <meta name="description" content="Operations Intelligence for SCANIA Component X predictive maintenance decision support">
+  <title>Operations Intelligence | SCANIA Component X</title>
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#view">Skip to main content</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#overview" aria-label="Operations Intelligence home">
+        <div class="brand-mark" aria-hidden="true"><span>OI</span></div>
+        <div class="brand-copy"><b>Operations Intelligence</b><small>SCANIA Component X</small></div>
+      </a>
+      <nav id="nav">
+        <div class="nav-group"><span class="nav-label">Monitor</span><a href="#overview" data-page="overview"><span class="nav-symbol">▦</span><span>Overview</span></a></div>
+        <div class="nav-group"><span class="nav-label">Investigate</span><a href="#analysis" data-page="analysis"><span class="nav-symbol">⌕</span><span>Vehicle analysis</span></a><a href="#agents" data-page="agents"><span class="nav-symbol">◇</span><span>Agent operations</span></a><a href="#decisions" data-page="decisions"><span class="nav-symbol">◎</span><span>Maintenance decisions</span></a></div>
+        <div class="nav-group"><span class="nav-label">Evaluate</span><a href="#analytics" data-page="analytics"><span class="nav-symbol">▥</span><span>Model analytics</span></a><a href="#verification" data-page="verification"><span class="nav-symbol">✓</span><span>System verification</span></a></div>
+        <div class="nav-group"><span class="nav-label">Tools</span><a href="#advanced" data-page="advanced"><span class="nav-symbol">⌘</span><span>Advanced input</span></a></div>
+      </nav>
+      <div class="side-bottom"><span id="health-dot" class="dot" aria-hidden="true"></span><div><b id="health-label">Connecting…</b><small id="model-label">Checking saved model</small></div></div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="page-heading"><div class="breadcrumb">Operations / <span id="crumb">Overview</span></div><h1 id="page-title">Operations overview</h1></div>
+        <div class="top-meta"><span class="live-dot" aria-hidden="true"></span><span id="top-health">Connecting to backend</span><button class="btn ghost" id="refresh-btn" type="button">↻ Refresh data</button></div>
+      </header>
+      <section id="view" aria-live="polite" aria-busy="true"><div class="loading">Loading operations data…</div></section>
+      <footer>Decision-support prototype. Recommendations require qualified human approval. Software verification does not establish physical safety.</footer>
+    </main>
+  </div>
+  <div id="tip" class="tooltip" role="tooltip" hidden></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/assets/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{
+ "_comment": "Facts copied from your own report files or derived by arithmetic from their confusion matrices. Nothing here was re-run or re-measured by the platform. Edit/extend this file if you re-evaluate a model.",
+ "official_validation": {
+  "vehicles": 5046,
+  "actual_class_counts_0_to_4": [
+   4910,
+   16,
+   14,
+   30,
+   76
+  ],
+  "reference_policies_derived": {
+   "always_0": {
+    "total_cost": 57400.0,
+    "mean_cost": 11.3753
+   },
+   "always_4": {
+    "total_cost": 49566.0,
+    "mean_cost": 9.8228
+   },
+   "basis": "computed from the class counts above and the official cost matrix"
+  }
+ },
+ "entries": {
+  "cost_sensitive_model.joblib": {
+   "source_file": "cost_sensitive_report.txt",
+   "identification": "Report title 'COST-SENSITIVE MODEL - OFFICIAL VALIDATION'; app.py loads this file. Mapping inferred, not proven.",
+   "evaluation": "official validation set, latest readout per vehicle",
+   "reported": {
+    "vehicles": 5046,
+    "total_cost": 49196,
+    "mean_cost": 9.7495
+   },
+   "derived_from_confusion_matrix": {
+    "vehicles_predicted_class_4": 4991,
+    "class0_vehicles_predicted_class_4": 4855,
+    "class0_recall": 0.0067
+   },
+   "reliability_notes": [
+    "Documented official-validation behaviour of this artifact: it predicted class 4 for 4,991 of 5,046 vehicles (98.9%), including 4,855 of 4,910 class-0 vehicles (source: cost_sensitive_report.txt).",
+    "Its reported mean cost (9.7495) is close to the always-class-4 reference (9.8228, derived) and well above the 5.1-5.6 internal random-cutoff simulations, which are a different protocol and not official scores."
+   ]
+  },
+  "balanced_baseline_model.joblib": {
+   "source_file": "official_validation_report.txt",
+   "identification": "Written by evaluate_official_validation.py, which loads balanced_baseline_model.joblib.",
+   "evaluation": "official validation set, latest readout per vehicle, argmax predictions",
+   "reported": {
+    "vehicles": 5046,
+    "balanced_accuracy": 0.2159,
+    "macro_f1": 0.0403
+   },
+   "derived_from_confusion_matrix": {
+    "total_cost": 45684.0,
+    "mean_cost": 9.0535,
+    "vehicles_predicted_class_4": 4576,
+    "class0_vehicles_predicted_class_4": 4442,
+    "class0_recall": 0.0925
+   },
+   "reliability_notes": [
+    "Documented official-validation behaviour of this artifact: it predicted class 4 for 4,576 of 5,046 vehicles (90.7%); class-0 recall 9.2% (source: official_validation_report.txt).",
+    "Cost derived from its reported confusion matrix: 45,684 total, 9.0535 per vehicle."
+   ]
+  },
+  "baseline_model.joblib": {
+   "source_file": "baseline_evaluation.txt",
+   "identification": "Initial internal baseline report; model file mapping inferred.",
+   "evaluation": "INTERNAL 100,000-row split (not official validation)",
+   "reported": {
+    "balanced_accuracy": 0.2,
+    "macro_f1": 0.1977
+   },
+   "reliability_notes": [
+    "Internal baseline predicted class 0 for every row (balanced accuracy 0.20); it has no failure detection ability (source: baseline_evaluation.txt)."
+   ]
+  }
+ },
+ "internal_simulations_user_reported": {
+  "note": "Reported by the project owner for the calibrated expected-cost rule on internal vehicle-held-out random-cutoff runs. The results.json files were not available when this platform was built, so these figures are unverified here. They are NOT official challenge scores.",
+  "calibrated_expected_cost_mean_cost": {
+   "seed_42": 5.5667,
+   "seed_123": 5.1278,
+   "seed_2026": 5.4132
+  }
+ }
+}

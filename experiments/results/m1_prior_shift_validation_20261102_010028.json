@@ -1,0 +1,705 @@
+{
+  "split": "validation",
+  "n_vehicles": 5046,
+  "any_failure_auc": 0.7073140050317479,
+  "priors": {
+    "train_readouts": [
+      0.9770680617077612,
+      0.011139006389582807,
+      0.005504912459508291,
+      0.002850901419392544,
+      0.003437118023755136
+    ],
+    "validation_counts": [
+      0.9730479587792311,
+      0.0031708283789139914,
+      0.0027744748315497426,
+      0.005945303210463734,
+      0.015061434799841459
+    ],
+    "effective_training_prior_assumed": 0.2
+  },
+  "results": [
+    {
+      "name": "always_0",
+      "mean_cost": 11.375346809353944,
+      "total_cost": 57400.0,
+      "balanced_accuracy": 0.2,
+      "macro_f1": 0.19726797910807553,
+      "prediction_counts_0_to_4": [
+        5046,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_single_class_share": 1.0,
+      "per_class_recall": {
+        "0": 1.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "per_class_precision": {
+        "0": 0.9730479587792311,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "confusion_matrix_rows_actual_cols_predicted": [
+        [
+          4910,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          14,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          30,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          76,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "always_4",
+      "mean_cost": 9.82282996432818,
+      "total_cost": 49566.0,
+      "balanced_accuracy": 0.2,
+      "macro_f1": 0.005935181569699336,
+      "prediction_counts_0_to_4": [
+        0,
+        0,
+        0,
+        0,
+        5046
+      ],
+      "max_single_class_share": 1.0,
+      "per_class_recall": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 1.0
+      },
+      "per_class_precision": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.015061434799841459
+      },
+      "confusion_matrix_rows_actual_cols_predicted": [
+        [
+          0,
+          0,
+          0,
+          0,
+          4910
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          16
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          14
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          76
+        ]
+      ]
+    },
+    {
+      "name": "M0 original, raw argmax",
+      "mean_cost": 10.531510107015459,
+      "total_cost": 53142.0,
+      "balanced_accuracy": 0.21970200450209026,
+      "macro_f1": 0.19631418981282872,
+      "prediction_counts_0_to_4": [
+        4471,
+        33,
+        3,
+        0,
+        539
+      ],
+      "max_single_class_share": 0.8860483551327785,
+      "per_class_recall": {
+        "0": 0.8879837067209776,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.21052631578947367
+      },
+      "per_class_precision": {
+        "0": 0.9751733392976962,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.029684601113172542
+      },
+      "confusion_matrix_rows_actual_cols_predicted": [
+        [
+          4360,
+          29,
+          2,
+          0,
+          519
+        ],
+        [
+          14,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          13,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          26,
+          3,
+          0,
+          0,
+          1
+        ],
+        [
+          58,
+          1,
+          1,
+          0,
+          16
+        ]
+      ]
+    },
+    {
+      "name": "M0 original, cost rule",
+      "mean_cost": 9.749504558065794,
+      "total_cost": 49196.0,
+      "balanced_accuracy": 0.2013441955193483,
+      "macro_f1": 0.008670048339904594,
+      "prediction_counts_0_to_4": [
+        33,
+        4,
+        10,
+        8,
+        4991
+      ],
+      "max_single_class_share": 0.9891002774474832,
+      "per_class_recall": {
+        "0": 0.006720977596741344,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 1.0
+      },
+      "per_class_precision": {
+        "0": 1.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.015227409336806252
+      },
+      "confusion_matrix_rows_actual_cols_predicted": [
+        [
+          33,
+          4,
+          10,
+          8,
+          4855
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          16
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          14
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          76
+        ]
+      ]
+    },
+    {
+      "name": "M0 original, argmax",
+      "mean_cost": 10.531510107015459,
+      "total_cost": 53142.0,
+      "balanced_accuracy": 0.21970200450209026,
+      "macro_f1": 0.19631418981282872,
+      "prediction_counts_0_to_4": [
+        4471,
+        33,
+        3,
+        0,
+        539
+      ],
+      "max_single_class_share": 0.8860483551327785,
+      "per_class_recall": {
+        "0": 0.8879837067209776,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.21052631578947367
+      },
+      "per_class_precision": {
+        "0": 0.9751733392976962,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.029684601113172542
+      },
+      "confusion_matrix_rows_actual_cols_predicted": [
+        [
+          4360,
+          29,
+          2,
+          0,
+          519
+        ],
+        [
+          14,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          13,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          26,
+          3,
+          0,
+          0,
+          1
+        ],
+        [
+          58,
+          1,
+          1,
+          0,
+          16
+        ]
+      ]
+    },
+    {
+      "name": "M1a prior=train readouts, cost rule",
+      "mean_cost": 11.375346809353944,
+      "total_cost": 57400.0,
+      "balanced_accuracy": 0.2,
+      "macro_f1": 0.19726797910807553,
+      "prediction_counts_0_to_4": [
+        5046,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_single_class_share": 1.0,
+      "per_class_recall": {
+        "0": 1.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "per_class_precision": {
+        "0": 0.9730479587792311,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "confusion_matrix_rows_actual_cols_predicted": [
+        [
+          4910,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          14,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          30,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          76,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "M1a prior=train readouts, argmax",
+      "mean_cost": 11.375346809353944,
+      "total_cost": 57400.0,
+      "balanced_accuracy": 0.2,
+      "macro_f1": 0.19726797910807553,
+      "prediction_counts_0_to_4": [
+        5046,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_single_class_share": 1.0,
+      "per_class_recall": {
+        "0": 1.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "per_class_precision": {
+        "0": 0.9730479587792311,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "confusion_matrix_rows_actual_cols_predicted": [
+        [
+          4910,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          14,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          30,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          76,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "M1b prior=validation counts, cost rule",
+      "mean_cost": 10.481965913594927,
+      "total_cost": 52892.0,
+      "balanced_accuracy": 0.22252867402722692,
+      "macro_f1": 0.20054538006520142,
+      "prediction_counts_0_to_4": [
+        4611,
+        0,
+        0,
+        0,
+        435
+      ],
+      "max_single_class_share": 0.9137931034482759,
+      "per_class_recall": {
+        "0": 0.915274949083503,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.19736842105263158
+      },
+      "per_class_precision": {
+        "0": 0.9746258945998699,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.034482758620689655
+      },
+      "confusion_matrix_rows_actual_cols_predicted": [
+        [
+          4494,
+          0,
+          0,
+          0,
+          416
+        ],
+        [
+          14,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          14,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          28,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          61,
+          0,
+          0,
+          0,
+          15
+        ]
+      ]
+    },
+    {
+      "name": "M1b prior=validation counts, argmax",
+      "mean_cost": 11.375346809353944,
+      "total_cost": 57400.0,
+      "balanced_accuracy": 0.2,
+      "macro_f1": 0.19726797910807553,
+      "prediction_counts_0_to_4": [
+        5046,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_single_class_share": 1.0,
+      "per_class_recall": {
+        "0": 1.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "per_class_precision": {
+        "0": 0.9730479587792311,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0
+      },
+      "confusion_matrix_rows_actual_cols_predicted": [
+        [
+          4910,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          14,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          30,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          76,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "reliability": {
+    "M0 original": [
+      {
+        "n": 1010,
+        "mean_predicted_p_any_failure": 0.38712093551100085,
+        "observed_failure_rate": 0.0039603960396039604
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.5806276470760667,
+        "observed_failure_rate": 0.017839444995044598
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.6403193265687349,
+        "observed_failure_rate": 0.018830525272547076
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.6800824088038891,
+        "observed_failure_rate": 0.03369672943508424
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.7297985995070275,
+        "observed_failure_rate": 0.06045589692765114
+      }
+    ],
+    "M1a prior=train readouts": [
+      {
+        "n": 1010,
+        "mean_predicted_p_any_failure": 0.0046011221168548826,
+        "observed_failure_rate": 0.0029702970297029703
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.008241997271823277,
+        "observed_failure_rate": 0.017839444995044598
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.010303361655419807,
+        "observed_failure_rate": 0.01684836471754212
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.012335098415433165,
+        "observed_failure_rate": 0.03369672943508424
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.015859198630893075,
+        "observed_failure_rate": 0.06342913776015857
+      }
+    ],
+    "M1b prior=validation counts": [
+      {
+        "n": 1010,
+        "mean_predicted_p_any_failure": 0.004182525687992618,
+        "observed_failure_rate": 0.0039603960396039604
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.009699348287585945,
+        "observed_failure_rate": 0.018830525272547076
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.01353175782541292,
+        "observed_failure_rate": 0.028741328047571853
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.016657833241988836,
+        "observed_failure_rate": 0.03468780971258672
+      },
+      {
+        "n": 1009,
+        "mean_predicted_p_any_failure": 0.022346373626894536,
+        "observed_failure_rate": 0.048562933597621406
+      }
+    ]
+  },
+  "notes": [
+    "No parameter was fitted on labels. The original model file is not modified.",
+    "Prior shift cannot change ranking quality (AUC); it only changes calibration and the cost-rule decisions."
+  ]
+}

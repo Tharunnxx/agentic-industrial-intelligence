@@ -54,10 +54,7 @@ def create_app(settings: Optional[Settings] = None, model_service: Optional[Mode
     evaluation = EvaluationService(settings.data_dir, model_service)
     # Keep uploads in their existing project-level location when the source CSV
     # directory is changed (for example, from project root to sibling /data).
-    legacy_upload_root = settings.platform_root.parent / ".agentic_uploads"
     upload_root = settings.data_dir / ".agentic_uploads"
-    if legacy_upload_root.is_dir() and not upload_root.exists():
-        upload_root = legacy_upload_root
     uploads = UploadDatasetService(upload_root, model_service)
     app = FastAPI(title="Agentic AI Industrial Operations Intelligence", version=__version__,
                   description="Predictive-maintenance module: prediction, investigation, decision and verification agents.")
